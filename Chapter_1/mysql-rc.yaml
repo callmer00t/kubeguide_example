@@ -20,3 +20,10 @@ spec:
         env: #注入容器内的环境变量
         - name: MYSQL_ROOT_PASSWORD
           value: "123456"
+        resources: #定义资源分配
+          requests: #最小资源量
+            memory: "64Mi"
+            cpu: "256m" #m是千分之一的CPU配额，通常100-300m
+          limits: #最大资源量
+            memory: "128Mi"
+            cpu: "500m"
