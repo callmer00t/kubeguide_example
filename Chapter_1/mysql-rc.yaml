@@ -1,3 +1,4 @@
+#chapter 1.3.2
 apiVersion: v1
 kind: ReplicationController #副本控制器RC
 metadata:

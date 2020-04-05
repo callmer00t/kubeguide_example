@@ -1,0 +1,13 @@
+#chapter 1.4.7
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+  namespace: default
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    kind: Deployment
+    name: php-apache
+  targetCPUUtilizationPercentage: 90

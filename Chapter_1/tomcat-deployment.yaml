@@ -1,3 +1,4 @@
+#chapter 1.4.6
 apiVersion: apps/v1
 #书中extensions/v1beta1的API版本不再提供Deployment，使用apps/v1
 #https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/
