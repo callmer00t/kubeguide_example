@@ -1,4 +1,5 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+#书中extensions/v1beta1的API版本不再提供Deployment，使用apps/v1
 kind: Deployment
 metadata:
   name: frontend
@@ -9,15 +10,15 @@ spec:
       tier: frontend
     matchExpressions:
       - {key: tier, operator: In, values: [frontend]}
-    template:
-      metadata:
-        labels:
-          app: app-demo
-          tier: frontend
-      spec:
-        containers:
-        - name: tomcat-demo
-          image: tomcat
-          imagePullPolicy: IfNotPresent
-          ports:
-          - containerPort: 8080
+  template:
+    metadata:
+      labels:
+        app: app-demo
+        tier: frontend
+    spec:
+      containers:
+      - name: tomcat-demo
+        image: tomcat
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
