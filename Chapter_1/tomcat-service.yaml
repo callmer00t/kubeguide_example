@@ -1,0 +1,15 @@
+#chapter 1.4.9
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service
+spec:
+  type: NodePort #定义使用NodePort，使集群外可以访问此Service
+  ports:
+  - port: 8080 #Service服务端口
+    name: service-port
+    nodePort: 31002 #指定NodePort，使集群外可以访问此Service
+  - port: 8005 #多端口示例
+    name: shutdown-port #每个端口都需要命名
+  selector:
+    tier: frontend #所有拥有“tier=frontend”这个Label的Pod都属于此Service

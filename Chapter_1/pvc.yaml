@@ -1,0 +1,16 @@
+#chapter 1.4.12
+apiVersion: v1
+kind: PersistentVolumeClaim #PVC用于某个Pod想要申请某种类型的PV
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  reources:
+    requests:
+      storage: 8Gi
+#定义PVC对象后，在Pod的Volume定义中引用PVC
+#volumes:
+#  - name: mypd
+#    PersistentVolumeClaim：
+#      claimName: myclaim

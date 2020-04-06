@@ -1,4 +1,4 @@
-#chapter 1.4.6
+#chapter 1.4.6, 1.4.11
 apiVersion: apps/v1
 #书中extensions/v1beta1的API版本不再提供Deployment，使用apps/v1
 #https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/
@@ -18,9 +18,18 @@ spec:
         app: app-demo
         tier: frontend
     spec:
+      volumes: #为Pod增加Volume
+      - name: datavol
+        emptyDir: {} #emptyDir类型的Volume，跟随Pod生命周期
+      - name: "presistent-storage"
+        hostPath: #hostPath类型的Volume，可在Pod上挂载宿主机上的文件或目录
+          path: "/data" #例如挂载宿主机的/data目录
       containers:
       - name: tomcat-demo
         image: tomcat
+        volumeMounts: #挂在到/mydata-data目录
+        - mountPath: /mydata-data
+          name: datavol
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

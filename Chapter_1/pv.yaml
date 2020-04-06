@@ -1,0 +1,16 @@
+#chapter 1.4.12
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0003
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes: #定义PV权限
+    - ReadWriteOnce 
+    #ReadWriteOnce：读写权限，只能被单个Node挂载
+    #ReadOnlyMany：只读权限，允许被多个Node挂载
+    #ReadWriteMany：读写权限，允许被多个Node挂载
+  nfs:
+    path: /somepath
+    server: 172.17.0.2
