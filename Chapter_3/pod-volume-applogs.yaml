@@ -1,0 +1,23 @@
+#chapter_3.4
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-pod
+spec:
+  containers:
+  - name: tomcat
+    image: tomcat
+    ports:
+    - containerPort: 8080
+    volumeMounts:
+    - name: app-logs
+      mountPath: /usr/local/tomcat/logs #挂载Volume到tomcat容器的/usr/local/tomcat/logs目录
+  - name: busybox
+    image: busybox
+    command: ["sh", "-c", "tail -f /logs/catalina*.log"] #busybox容器作为logreader，执行命令tail -f /logs/catalina*.log
+    volumeMounts:
+    - name: app-logs
+      mountPath: /logs #挂载Volume到busybox容器的/logs目录
+  volumes:
+  - name: app-logs
+    emptyDir: {} #设置一个名为app-logs的emptyDir类型的Volume

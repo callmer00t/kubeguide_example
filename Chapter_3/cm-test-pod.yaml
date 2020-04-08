@@ -1,0 +1,25 @@
+#chapter_3.5.3
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-test-pod
+spec:
+  containers:
+  - name: cm-test
+    image: busybox
+    command: ["/bin/sh", "-c", "env | grep APP"]
+    env:
+    - name: APPLOGLEVEL #定义环境变量的名称
+      valueFrom: #key "apploglevel" 对应的值
+        configMapKeyRef:
+          name: cm-appvars #环境变量的值取自cm-appvars:
+          key: apploglevel #key为apploglevel
+    - name: APPDATADIR #定义环境变量的名称
+      valueFrom: #key "appdatadir" 对应的值
+        configMapKeyRef:
+          name: cm-appvars #环境变量的值取自cm-appvars:
+          key: appdatadir #key为appdatadir
+    #envFrom: #Kubernetes 1.6开始引入的新字段，可以自动生成环境变量
+    #- configMapKeyRef
+    #  name: cm-appvars #根据cm-appvars中的key=value自动生成环境变量
+  restartPolicy: Never
