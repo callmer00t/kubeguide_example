@@ -1,0 +1,22 @@
+#chapter_3.8
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: busybox
+    args:
+    - /bin/sh
+    - -c
+    - echo ok > /tmp/health; sleep 10; rm -rf /tmp/health; sleep 600 #创建/tmp/health文件10秒后删除它
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/health #通过cat /tmp/health判断容器存活状态
+      initialDelaySeconds: 15 #LivenessProbe的初始探测时间设置为15秒
+      timeoutSeconds: 1
