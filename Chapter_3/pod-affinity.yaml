@@ -1,0 +1,20 @@
+#chapter_3.9.4
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-affinity
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: security
+            operator: In
+            values:
+            - S1
+        topologyKey: kubernetes.io/hostname
+  containers:
+  - name: with-pod-affinity
+    image: gcr.io/google_containers/pause:2.0
+#此Pod会与pod-flag在同一个Node上运行

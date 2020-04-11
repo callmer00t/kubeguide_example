@@ -1,0 +1,31 @@
+#chapter_3.9.4
+apiVersion: v1
+kind: Pod
+metadata:
+  name: anti-affinity
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: security
+            operator: In
+            values:
+            - S1
+        topologyKey: topology.kubernetes.io/zone #1.17版本开始弃用failure-domain.beta.kubernetes.io/zone，而推荐使用topology.kubernetes.io/zone
+        #与security=S1的Pod为同一个Zone
+        #VM测试中加上podAffinity一段会Pending，单独测试podAntiAffinity正常，待后续研究
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - nginx
+        topologyKey: kubernetes.io/hostname
+        #与app=nginx的Pod不在同一个Node
+  containers:
+  - name: anti-affinity
+    image: gcr.io/google_containers/pause:2.0
