@@ -1,0 +1,25 @@
+#chapter_3.11.4
+kind: ReplicationController
+metadata:
+  name: redis-master-v2
+  labels:
+    name: redis-master #注意名字不能与待升级的RC相同
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    name: redis-master
+    version: v2 #selector中应至少有一个label与待升级的RC不同，用以标识
+  template:
+    metadata:
+      labels:
+        name: redis-master
+        version: v2
+    spec:
+      containers:
+      - name: master
+        image: kubeguide/redis-master:2.0
+        ports:
+        - containerPort: 6379
+#用于redis-master-controller滚动升级
+#kubernetes 1.18中已经移除了kubectl rolling-update命令，官方已不推荐使用RC而推荐使用RS和Deployment
