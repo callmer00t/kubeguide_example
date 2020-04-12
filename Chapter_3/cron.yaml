@@ -1,0 +1,19 @@
+#chapter_3.9.9
+apiVersion: batch/v1beta1 #书中示例apiVersion为batch/v1，k8s 1.18环境测试无效，需使用batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *" #每隔1分钟执行一次人物
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster #在控制台输出当前时间和字符串“Hello from the Kubernetes cluster”
+          restartPolicy: OnFailure

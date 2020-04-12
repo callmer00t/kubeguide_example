@@ -1,0 +1,24 @@
+#chapter_3.9.7
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: process-item-$ITEM
+  labels:
+    jobgroup: jobexample
+spec:
+  template:
+    metadata:
+      name: jobexample
+      labels:
+        jobgroup: jobexample
+    spec:
+      containers:
+      - name: c
+        image: busybox
+        command: ["sh", "-c", "echo Processing item $ITEM && sleep 5"]
+      restartPolicy: Never
+#先定义创建Job yaml模板，使用以下命令批量创建Job yaml，注意先创建jobs目录
+#for i in apple banana cherry
+#do
+#cat job.yaml.txt | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
+#done

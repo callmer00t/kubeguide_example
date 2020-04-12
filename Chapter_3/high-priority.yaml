@@ -1,0 +1,9 @@
+#chapter_3.9.6
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000000
+globalDefault: false
+description: "This priority class should be used for XYZ service pods only."
+#定义一个名为high-priority的优先级类别，优先级为1000000，数字越大优先级越高
