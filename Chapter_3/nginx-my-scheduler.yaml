@@ -1,0 +1,14 @@
+#chapter_3.9.10
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  schedulerName: my-scheduler #为Pod指定了名为my-scheduler的自定义调度器
+  containers:
+  - name: nginx
+    image: nginx
+#如果自定义调度器还未在系统中部署，该Pod创建后会处于Pending状态
+#使用my-scheduler.sh脚本实现自定义调度器，该Pod会被正确调度
