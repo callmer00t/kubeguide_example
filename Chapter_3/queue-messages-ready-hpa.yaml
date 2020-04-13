@@ -1,0 +1,11 @@
+#chapter_3.12.2
+- type: External
+  external:
+    metric:
+      name: queue_message_ready
+      selector: "queue=worker_tasks"
+    target:
+      type: AverageValue
+      averageValue: 30
+#基于外部服务的性能指标扩缩容的示例
+#设置指标的名称为queue_message_ready，具有queue=worker_tasks标签，在目标指标平均值为30时触发自动扩缩容操作

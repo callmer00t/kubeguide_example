@@ -1,0 +1,14 @@
+#chapter_3.12.2
+metrics:
+- type: Object
+  object:
+    metric:
+      name: requests-per-second
+    describeObject:
+      apiVersion: extensions/v1beta1
+      kind: Ingress
+      name: main-route
+    target:
+      type: Value
+      value: 2k
+#设置指标的名称为requests-per-second，其值来源于Ingress main-route，将目标值设置为2000，即在Ingress的每秒请求数量达到2000个时触发扩缩容操作

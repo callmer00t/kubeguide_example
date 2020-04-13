@@ -1,0 +1,19 @@
+#chapter_3.12.2
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics: #目标指标值
+  - type: Resource #metric.type包括三种：Resource，Pods，Object
+    resource:
+      name: cpu #Resource类型的指标可以设置CPU和内存
+      target:
+        type: Utilization #设置使用率参数
+        averageUtilization: 50 #设置目标平均CPU使用率

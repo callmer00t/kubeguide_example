@@ -1,0 +1,13 @@
+#chapter_3.12.2
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef: #目标作用对象，可以是deployment，rc或rs
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1 #Pod副本数量的最小值
+  maxReplicas: 10 #Pod副本数量的最大值
+  targetCPUUtilizationPercentage: 50 #期望每个Pod的CPU使用率都为50%，基于Pod设置的CPU Request值计算

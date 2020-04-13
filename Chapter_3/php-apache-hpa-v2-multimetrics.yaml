@@ -1,0 +1,37 @@
+#chapter_3.12.2
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: AverageUtilization
+        averageUtilization: 50
+  - type: Pods
+    pods:
+      metric:
+        name: packets-per-second
+      targetAverageValue: 1k
+  - type: Object
+    object:
+      metric:
+        name: requests-per-second
+      describedObject:
+        apiVersion: extensions/v1beta1
+        kind: Ingress
+        name: main-route
+      target:
+        kind: Value
+        value: 10k
+#在同一个HPA资源对象中定义多个类型指标的示例，系统会针对每种类型的指标都计算Pod副本的目标数量，以最大值为准进行扩缩容操作

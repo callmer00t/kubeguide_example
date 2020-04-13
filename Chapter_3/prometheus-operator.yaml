@@ -1,0 +1,32 @@
+#chapter_3.12.2
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: prometheus-operator
+  name: prometheus-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: prometheus-operator
+  template:
+    metadata:
+      labels:
+        k8s-app: prometheus-operator
+    spec:
+      containers:
+      - image: quay.io/coreos/prometheus-operator
+        imagePullPolicy: IfNotPresent
+        name: prometheus-operator
+        ports:
+        - containerPort: 8080
+          name: http
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+#基于自定义指标的HPA部署实践——部署Prometheus-operator

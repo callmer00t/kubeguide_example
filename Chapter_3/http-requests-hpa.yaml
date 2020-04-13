@@ -1,0 +1,11 @@
+#chapter_3.12.2
+metrics:
+- type: Object
+  object:
+    metric:
+      name: 'http_requests'
+      selector: 'verb=GET'
+    target:
+      type: AverageValue
+      averageValue: 500
+#设置指标的名称为http_requests，并且该资源对象具有标签“verb=GET”，在指标平均值达到500时触发扩缩容操作
