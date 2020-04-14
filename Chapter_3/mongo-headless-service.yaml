@@ -1,0 +1,16 @@
+#chapter_3.13.2
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  labels:
+    name: mongo
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  clusterIP: None
+  selector:
+    role: mongo
+#使用StatefulSet搭建MongoDB集群示例
+#创建Headless Service用来维护各个MangoDB实例之间的集群关系，以及集群规模变化时的自动更新

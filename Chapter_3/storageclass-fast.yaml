@@ -1,0 +1,10 @@
+#chapter_3.13.2
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://<heketi-rest-url>"
+#使用StatefulSet搭建MongoDB集群示例
+#创建一个StorageClass对象，用于StatefulSet自动位各个应用Pod申请PVC
