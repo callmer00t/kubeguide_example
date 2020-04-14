@@ -1,0 +1,12 @@
+#chapter_4.2
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  ports:
+  - port: 8081 #指定Service所需的虚拟端口号为8081
+    targetPort: 8080 #使用targetPort指定后端Pod的端口号
+  selector:
+    app: webapp #指定后端Pod拥有的label: app=webapp
+#关键字段是ports和selector

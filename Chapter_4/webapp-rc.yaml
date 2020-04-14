@@ -1,0 +1,19 @@
+#chapter_4.2
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: webapp
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: webapp
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: tomcat
+        ports:
+        - containerPort: 8080
+#定义一个提供Web服务的RC，由两个Tomcat容器副本组成，每个容器都通过containerPort设置提供服务的端口号为8080
