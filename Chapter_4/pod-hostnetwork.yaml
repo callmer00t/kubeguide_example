@@ -1,0 +1,16 @@
+#chapter_4.4.1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  hostNetwork: true
+  containers:
+  - name: webapp
+    image: tomcat
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 8080
+#设置Pod级别的hostNetwork=true，将该Pod中所有容器端口号直接映射到物理机上

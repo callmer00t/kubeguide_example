@@ -1,0 +1,16 @@
+#chapter_4.4.1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  containers:
+  - name: webapp
+    image: tomcat
+    ports:
+    - containerPort: 8080
+      hostPort: 8081
+#设置容器级别的hostPort，将容器应用的端口号映射到物理机
+#可以直接访问物理机IP（NodeIP）的8081端口来访问Pod内的容器服务

@@ -1,0 +1,14 @@
+#chapter_4.3
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+  clusterIP: None
+  selector:
+    app: nginx
+#Service不具有特定ClusterIP，获得全部包含Label"app=nginx"的Pod列表

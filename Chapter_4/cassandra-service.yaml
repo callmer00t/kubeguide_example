@@ -1,0 +1,14 @@
+#chapter_4.3.2
+#Headless Service应用——Cassandra节点相互查找和集群自动搭建示例
+#通过Service动态查找Pod
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: cassandra
+  name: cassandra
+spec:
+  ports:
+    - port: 9042
+  selector:
+    name: cassandra

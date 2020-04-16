@@ -1,0 +1,26 @@
+#chapter_4.5.5
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: default
+  name: dns-example
+spec:
+  containers:
+  - name: test
+    image: nginx
+  dnsPolicy: "None"
+  dnsConfig:
+    nameservers:
+      - 1.2.3.4
+    searches:
+      - ns1.svc.cluster.local
+      - my.dns.search.suffix
+    options:
+      - name: ndots
+        value: "2"
+      - name: ends0
+#Pod级别DNS配置示例
+#该Pod创建后，容器内的DNS配置文件/etc/resolv.conf的内容被设置为：
+#nameserver 1.2.3.4
+#search ns1.svc.cluster.local my.dns.search.suffix
+#options ndots:2 edns0

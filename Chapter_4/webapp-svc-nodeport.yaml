@@ -1,0 +1,14 @@
+#chapter_4.4.2
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30000
+  selector:
+    app: webapp
+#通过设置nodePort映射到物理机
