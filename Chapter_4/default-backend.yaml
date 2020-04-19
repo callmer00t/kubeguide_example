@@ -1,0 +1,53 @@
+#chapter_4.6.1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: default-http-backend
+  labels:
+    k8s-app: default-http-backend
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: default-http-backend
+  template:
+    metadata:
+      labels:
+        k8s-app: default-http-backend
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: default-http-backend
+        image: gcr.io/google-containers/defaultbackend
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 10m
+            memory: 20Mi
+          requests:
+            cpu: 10m
+            memory: 20Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: default-http-backend
+  namespace: kube-system
+  labels:
+    k8s-app: default-http-backend
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    k8s-app: default-http-backend
+#配置默认backend，用于在客户端访问的URL不存在时返回正确的404应答
