@@ -1,0 +1,17 @@
+#chapter_4.6.4
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  #annotations:
+    #ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+    paths:
+    - path: /demo
+      backend:
+        serviceName: webapp
+        servicePort: 8080
+#将<ingress-controller-ip>/demo的访问请求转发到webapp:8080/demo服务上
+#使用无域名的Ingress转发规则，会默认禁用HTTP，强制启用HTTPS，使用上方注释掉的两行可以关闭强制HTTPS

@@ -1,0 +1,15 @@
+#chapter_4.6.2
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mywebsite-ingress
+spec:
+  rules:
+  - host: mywebsite.com
+    http:
+      paths:
+      - path: /demo
+        backend:
+          serviceName: webapp
+          servicePort: 8080
+#对mywebsite.com网站的访问设置Ingress策略，定义对其/demo路径的访问转发到后端webapp Service

@@ -1,0 +1,10 @@
+#chapter_4.6.4
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  backend:
+    serviceName: myweb
+    servicePort: 8080
+#对Ingress Controller的访问请求都将被转发到myweb:8080这个服务

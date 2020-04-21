@@ -1,0 +1,19 @@
+#chapter_4.6.4
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  rules:
+  - host: mywebsite.com
+    http:
+      paths:
+      - path: /web
+        backend:
+          serviceName: web-service
+          servicePort: 80
+      - path: /api
+        backend:
+          serviceName: api-service
+          servicePort: 8081
+#通过不同URL转发到不同的服务上
